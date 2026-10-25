@@ -18,7 +18,10 @@ openssl req -new -x509 -days 3650 \
   -out "${FILE_NAME}.crt" \
   -newkey rsa:2048 -noenc -keyout "${FILE_NAME}.key" \
   -subj "/CN=${CN}" \
-  -addext "subjectAltName=${SANVAL}"
+  -addext "subjectAltName=${SANVAL}" \
+  -addext "basicConstraints = CA:FALSE" \
+  -addext "keyUsage = digitalSignature,keyEncipherment" \
+  -addext "extendedKeyUsage = serverAuth"
 
 openssl x509 -in "${FILE_NAME}.crt" -text
 
